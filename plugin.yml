@@ -9,6 +9,10 @@ commands:
     description: Trolls a player
     usage: /troll <player>
     permission: troll.basic
+  cookie:
+    description: Opens a fortune cookie
+    usage: /cookie
+    permission: troll.basic
 
 permissions:
   troll.basic:

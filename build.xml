@@ -35,6 +35,7 @@
         <jar jarfile="${jarfile}" basedir="${build}" description="rebuild the jarfile">
             <fileset file="config.yml"/>
             <fileset file="plugin.yml"/>
+            <fileset file="fortunes.txt"/>
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <!-- <attribute name="Main-Class" value="nexusbot.NexusBot"/> -->

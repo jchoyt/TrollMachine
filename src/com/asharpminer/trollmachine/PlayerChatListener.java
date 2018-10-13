@@ -16,12 +16,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PlayerChatListener implements Listener {
 
     private TrollMachine plugin = null;
-    private Logger log = null;
-    private java.util.Random random = new java.util.Random();
+    private Logger logger = null;
 
     public PlayerChatListener(TrollMachine plugin) {
         this.plugin = plugin;  // Store the plugin in situations where you need it.
-        log = plugin.getLogger();
+        logger = plugin.getLogger();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -38,7 +37,7 @@ public class PlayerChatListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        if(random.nextFloat() < 0.1) {
+        if(Math.random() < 0.1) {
             event.setJoinMessage("Welcome, " + event.getPlayer().getName() + "! Friendly reminder that Kelly is not the boss.");
         }
     }

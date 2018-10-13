@@ -4,6 +4,12 @@
 
 package com.asharpminer.trollmachine;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.io.Reader;
+import java.io.BufferedReader;
 import org.bukkit.Bukkit;
 import java.util.Collection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,11 +17,18 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public final class TrollMachine extends JavaPlugin {
+
+    private Logger logger = null;
+
+    public TrollMachine() {
+        logger = getLogger();
+    }
+
     @Override
     public void onEnable() {
         // load up listeners
         new PlayerChatListener(this);
-        //getCommand("troll").setExecutor(new TrollCommandExecutor(this));
+        new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
     }
 
     @Override
@@ -50,4 +63,62 @@ public final class TrollMachine extends JavaPlugin {
             }
         }, delay);
     }
+
+    /**
+    * Generic function to load a text file into a List of Strings
+    *
+    * @param filename DOCUMENT ME!
+    * @param caseSensitive DOCUMENT ME!
+    *
+    * @return DOCUMENT ME!
+    */
+    public List<String> loadFile( String filename, boolean caseSensitive )
+    {
+        List<String> list = new ArrayList<String>();
+        try
+        {
+            Reader inFile = this.getTextResource(filename);
+            if(inFile == null) return list;
+            BufferedReader br = new BufferedReader(inFile);
+            String tmp;
+            tmp = br.readLine(); // read first line of file.
+            while ( tmp != null ) { // read a line until end of file.
+                if ( caseSensitive ) {
+                    list.add( tmp );
+                }
+                else {
+                    list.add( tmp.toLowerCase());
+                }
+                tmp = br.readLine();
+            }
+        }
+        catch ( Exception e ) {
+            getLogger().log(Level.SEVERE, "Error reading config file " + filename, e);
+        }
+        return list;
+    }
+
+    /**
+     *  Sends a random selection from quotelist
+     */
+    public void sendQuote( List<String> quotelist, String prefix, String postfix )
+    {
+        int MAXLENGTH = 256;
+        if ( quotelist.size() == 0 ) {
+            logger.severe("Empty quote list given. Please don't do that again." );
+            return;
+        }
+
+        double randomValue = Math.random(  );
+        int quoteNum = ( int ) ( randomValue * quotelist.size(  ) );
+        String quote = prefix + quotelist.get( quoteNum ) + postfix;
+
+        while ( quote.length() > MAXLENGTH ) {
+            int breakPt = quote.lastIndexOf(" ", MAXLENGTH );
+            Bukkit.broadcastMessage(quote.substring( 0, breakPt ));
+            quote = quote.substring( breakPt - 1 );
+        }
+        Bukkit.broadcastMessage(quote);
+    }
+
 }
