@@ -1,0 +1,19 @@
+name: TrollMachine
+main: com.asharpminer.trollmachine.TrollMachine
+version: 1.0
+prefix: "TrollMachine"
+api-version: 1.13
+
+commands:
+  troll:
+    description: Trolls a player
+    usage: /troll <player>
+    permission: troll.basic
+
+permissions:
+  troll.basic:
+    description: Gives access to use trollbot
+    default: true
+  troll.admin:
+    description: Gives access to admin controls
+    default: op
