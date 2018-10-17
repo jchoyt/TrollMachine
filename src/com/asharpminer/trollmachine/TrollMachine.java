@@ -29,6 +29,7 @@ public final class TrollMachine extends JavaPlugin {
         // load up listeners
         new PlayerChatListener(this);
         new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
+        new PlayerDeathListener(this); // random death messages when a player dies
     }
 
     @Override
@@ -60,6 +61,17 @@ public final class TrollMachine extends JavaPlugin {
             @Override
             public void run() {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+            }
+        }, delay);
+    }
+
+    /** Broadcast a message for an asynchronous chat **/
+    public void asyncBroadcast(String message, long delay){
+        BukkitScheduler scheduler = getServer().getScheduler();
+        scheduler.scheduleSyncDelayedTask(this, new Runnable() {
+            @Override
+            public void run() {
+                Bukkit.broadcastMessage(message);
             }
         }, delay);
     }

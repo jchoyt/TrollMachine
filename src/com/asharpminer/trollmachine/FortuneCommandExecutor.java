@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /* Returns a fortune cookie fortune to the player */
 public class FortuneCommandExecutor implements CommandExecutor {
     private TrollMachine plugin;
-    private  List<String> fortunes = new ArrayList<String>();
+    private List<String> fortunes = new ArrayList<String>();
     private Logger logger = null;
 
     public FortuneCommandExecutor(TrollMachine plugin) {
@@ -33,7 +34,9 @@ public class FortuneCommandExecutor implements CommandExecutor {
         //verify a player is sending this
         if (sender instanceof Player) {
             Player player = (Player)sender;
-            plugin.sendQuote(fortunes, player.getName() + " requested a fortune cookie. The fortune reads: ", "");
+            plugin.sendQuote(fortunes, ChatColor.GRAY +
+                player.getName() + " requested a fortune cookie. The fortune reads: " +
+                ChatColor.DARK_AQUA, "");
             return true;
         } else {
             sender.sendMessage("You must be a player!");

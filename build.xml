@@ -36,6 +36,7 @@
             <fileset file="config.yml"/>
             <fileset file="plugin.yml"/>
             <fileset file="fortunes.txt"/>
+            <fileset file="death_messages.txt"/>
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <!-- <attribute name="Main-Class" value="nexusbot.NexusBot"/> -->
