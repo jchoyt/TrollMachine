@@ -30,14 +30,18 @@ public class PlayerChatListener implements Listener {
         Player p = event.getPlayer();
 
         if(message.toLowerCase().contains("i'm hungry")) {
-            plugin.runCommand(String.format("give %1$s minecraft:cake", p.getName()), 20L);
+            plugin.runCommand("give " + p.getName() + " minecraft:cake", 20L);
+        }
+
+        if(message.toLowerCase().contains("@kelly")){
+            plugin.asyncBroadcast("...also paging @alsokelly", 20L);
         }
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        if(Math.random() < 0.1) {
+        if(Math.random() < 0.05) {
             event.setJoinMessage("Welcome, " + event.getPlayer().getName() + "! Friendly reminder that Kelly is not the boss.");
         }
     }
