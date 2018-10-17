@@ -13,6 +13,10 @@ commands:
     description: Opens a fortune cookie
     usage: /cookie
     permission: troll.basic
+  joke:
+    description: Tells a joke
+    usage: /joke
+    permission: troll.basic
 
 permissions:
   troll.basic:

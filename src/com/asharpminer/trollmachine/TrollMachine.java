@@ -28,8 +28,9 @@ public final class TrollMachine extends JavaPlugin {
     public void onEnable() {
         // load up listeners
         new PlayerChatListener(this);
-        new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
         new PlayerDeathListener(this); // random death messages when a player dies
+        new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
+        new JokeCommandExecutor(this); //tells a short joke
     }
 
     @Override
