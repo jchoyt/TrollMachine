@@ -35,9 +35,8 @@ public class PlayerDeathListener implements Listener {
     public void onDeath(EntityDeathEvent event)
     {
         LivingEntity deader = event.getEntity();
-        logger.info("something died");
 
-        if(deader instanceof Player){// && Math.random() < 0.3) {
+        if(deader instanceof Player) {
             Player p = (Player)deader;
             logger.info(p.getName() + " died");
             plugin.sendQuote(deathMessages, ChatColor.GOLD + "", "");

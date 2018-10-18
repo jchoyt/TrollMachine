@@ -4,6 +4,7 @@
 package com.asharpminer.trollmachine;
 
 import java.util.logging.Logger;
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -42,7 +43,7 @@ public class PlayerChatListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         if(Math.random() < 0.05) {
-            event.setJoinMessage("Welcome, " + event.getPlayer().getName() + "! Friendly reminder that Kelly is not the boss.");
+            event.setJoinMessage(ChatColor.YELLOW + "Welcome, " + event.getPlayer().getName() + "! Friendly reminder that Kelly is not the boss.");
         }
     }
 }

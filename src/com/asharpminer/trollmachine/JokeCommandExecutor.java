@@ -38,7 +38,7 @@ public class JokeCommandExecutor implements CommandExecutor {
             Player player = (Player)sender;
             plugin.sendQuote(jokes, ChatColor.GRAY +
                 player.getName() + " asked for a joke. " +
-                ChatColor.BLUE, "");
+                ChatColor.LIGHT_PURPLE, "");
             return true;
         } else {
             sender.sendMessage("You must be a player!");
