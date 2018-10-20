@@ -30,7 +30,7 @@ public class FranklinCommandExecutor implements CommandExecutor {
         plugin.getCommand("franklin").setExecutor(this);
         //allowedUsers.add(UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21")); //Entomo
         //allowedUsers.add(new UUID("558b43b7-173c-4951-bdbd-976adb246c09")); //injudicious
-        allowedUsers.add(UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62")); //kaityizzy
+        allowedUsers.add(plugin.kaitlynUuid); //kaityizzy
     }
 
     @Override

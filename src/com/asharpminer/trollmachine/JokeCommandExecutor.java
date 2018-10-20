@@ -33,6 +33,8 @@ public class JokeCommandExecutor implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(plugin.isKaitlynOnline())
+            return false;
         //verify a player is sending this
         if (sender instanceof Player) {
             Player player = (Player)sender;

@@ -6,6 +6,7 @@ package com.asharpminer.trollmachine;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.io.Reader;
@@ -19,6 +20,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 public final class TrollMachine extends JavaPlugin {
 
     private Logger logger = null;
+    public UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
 
     public TrollMachine() {
         logger = getLogger();
@@ -55,6 +57,11 @@ public final class TrollMachine extends JavaPlugin {
             }
         }
         return targetPlayer;
+
+
+    public boolean isKaitlynOnline() {
+        Player kaitlyn = this.getServer().getPlayer(this.kaitlynUuid);
+        return kaitlyn.isOnline();
     }
 
     public void runCommand(String command, long delay){
