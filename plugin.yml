@@ -1,6 +1,6 @@
 name: TrollMachine
 main: com.asharpminer.trollmachine.TrollMachine
-version: 1.0
+version: 0.1
 prefix: "TrollMachine"
 api-version: 1.13
 
@@ -13,6 +13,10 @@ commands:
     description: Opens a fortune cookie
     usage: /cookie
     permission: troll.basic
+  franklin:
+      description: Summons Franklin
+      usage: /franklin
+      persmission: troll.basic/summon chicken ~ ~ ~ {CustomName:"{\"text\":\"Garry\"}"}/summon chicken ~ ~ ~ {CustomName:"{\"text\":\"Garry\"}"}
   joke:
     description: Tells a joke
     usage: /joke
