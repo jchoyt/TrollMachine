@@ -15,6 +15,7 @@ import org.bukkit.Bukkit;
 import java.util.Collection;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public final class TrollMachine extends JavaPlugin {
@@ -57,6 +58,7 @@ public final class TrollMachine extends JavaPlugin {
             }
         }
         return targetPlayer;
+    }
 
 
     public boolean isKaitlynOnline() {
