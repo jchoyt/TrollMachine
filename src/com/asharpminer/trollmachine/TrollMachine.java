@@ -63,7 +63,7 @@ public final class TrollMachine extends JavaPlugin {
 
     public boolean isKaitlynOnline() {
         Player kaitlyn = this.getServer().getPlayer(this.kaitlynUuid);
-        return kaitlyn.isOnline();
+        return ( kaitlyn != null && kaitlyn.isOnline());
     }
 
     public void runCommand(String command, long delay){
