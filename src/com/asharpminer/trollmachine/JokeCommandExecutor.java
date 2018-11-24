@@ -27,7 +27,8 @@ public class JokeCommandExecutor implements CommandExecutor {
     public JokeCommandExecutor(TrollMachine plugin) {
         this.plugin = plugin;           // Store the plugin in situations where you need it.
         jokes = plugin.loadFile("one-liners.txt", true);  // jokes that don't get kelly awkward questions
-        allJokes = jokes.addAll(plugin.loadFile("blue-one-liners.txt", true)); // the other jokes
+        allJokes.addAll(jokes);
+        allJokes.addAll(plugin.loadFile("blue-one-liners.txt", true));
         logger = plugin.getLogger();
         PluginCommand c = this.plugin.getCommand("joke");  //don't forget to update plugin.yml
         c.setExecutor(this);
