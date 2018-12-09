@@ -35,6 +35,7 @@ public final class TrollMachine extends JavaPlugin {
         new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
         new JokeCommandExecutor(this); //tells a short joke
         new FranklinCommandExecutor(this); //allows kaityizzy to summon a chicken named Franklin
+        new SleepListener(this);
     }
 
     @Override

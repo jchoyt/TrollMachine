@@ -19,15 +19,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SleepListener implements Listener {
 
     private TrollMachine plugin = null;
+    private Logger logger = null;
 
     public SleepListener(TrollMachine plugin) {
         this.plugin = plugin;  // Store the plugin in situations where you need it.
+        logger = plugin.getLogger();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        logger.config("Sleep listener registered");
     }
 
     @EventHandler
     public void onSleep(PlayerBedEnterEvent event) {
         String who = event.getPlayer().getName();
-        plugin.asyncBroadcast("Goodnight dear " + who + "! May you dream wonderful dreams.", 20L);
+        logger.fine( who + " has slept");
+        plugin.asyncBroadcast(ChatColor.DARK_AQUA + "Goodnight dear " + who + "! May you dream wonderful dreams.", 20L);
     }
 }
