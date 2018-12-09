@@ -1,14 +1,16 @@
 name: TrollMachine
+description: Various non-game changing interruptions in the normal course of playing
 main: com.asharpminer.trollmachine.TrollMachine
-version: 0.1
+version: 0.2
 prefix: "TrollMachine"
 api-version: 1.13
+softdepend: [ManHunt]
 
 commands:
   troll:
     description: Trolls a player
     usage: /troll <player>
-    permission: troll.basic
+    permission: troll.admin
   cookie:
     description: Opens a fortune cookie
     usage: /cookie
@@ -16,7 +18,7 @@ commands:
   franklin:
       description: Summons Franklin
       usage: /franklin
-      persmission: troll.basic/summon chicken ~ ~ ~ {CustomName:"{\"text\":\"Garry\"}"}/summon chicken ~ ~ ~ {CustomName:"{\"text\":\"Garry\"}"}
+      persmission: troll.basic
   joke:
     description: Tells a joke
     usage: /joke
@@ -29,3 +31,6 @@ permissions:
   troll.admin:
     description: Gives access to admin controls
     default: op
+
+database: false
+author: Jeffrey C. Hoyt

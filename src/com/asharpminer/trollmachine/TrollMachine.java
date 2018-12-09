@@ -20,11 +20,11 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public final class TrollMachine extends JavaPlugin {
 
-    private Logger logger = null;
+    private Logger log = null;
     public UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
 
     public TrollMachine() {
-        logger = getLogger();
+        log = getLogger();
     }
 
     @Override
@@ -36,6 +36,8 @@ public final class TrollMachine extends JavaPlugin {
         new JokeCommandExecutor(this); //tells a short joke
         new FranklinCommandExecutor(this); //allows kaityizzy to summon a chicken named Franklin
         new SleepListener(this);
+        if(getServer().getPluginManager().getPlugin("ManHunt") != null) //load this listener only if ManHut is loaded
+            new ManHuntFailListener(this);
     }
 
     @Override
@@ -129,7 +131,7 @@ public final class TrollMachine extends JavaPlugin {
     {
         int MAXLENGTH = 256;
         if ( quotelist.size() == 0 ) {
-            logger.severe("Empty quote list given. Please don't do that again." );
+            log.severe("Empty quote list given. Please don't do that again." );
             return;
         }
 
