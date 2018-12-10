@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom sleep message from TM when a player sleeps
 
 ### Changed
-- Dependency on [ManHunt plugin](https://github.com/jchoyt/ManHunt) version 1.2 or later (for AfkEvent)
+- Dependency on [ManHunt plugin](https://github.com/jchoyt/ManHunt) version 1.4 or later (for AfkEvent)
 - /jokes works when kaityizzy is online, but it won't use the blue jokes listener
 
 ### Fixed
