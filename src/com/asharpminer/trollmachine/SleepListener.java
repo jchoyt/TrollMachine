@@ -30,6 +30,8 @@ public class SleepListener implements Listener {
 
     @EventHandler
     public void onSleep(PlayerBedEnterEvent event) {
+        // Only say goodnight occasionally and when people actually get into the bed
+        if(Math.random(  ) > 0.05 || event.getBedEnterResult​() != PlayerBedEnterEvent.BedEnterResult.valueOf("OK")) return;
         String who = event.getPlayer().getName();
         logger.fine( who + " has slept");
         plugin.asyncBroadcast(ChatColor.DARK_AQUA + "Goodnight dear " + who + "! May you dream wonderful dreams.", 20L);
