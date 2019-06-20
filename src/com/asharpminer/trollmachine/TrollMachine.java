@@ -4,24 +4,25 @@
 
 package com.asharpminer.trollmachine;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.io.Reader;
 import java.io.BufferedReader;
-import org.bukkit.Bukkit;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Collection;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.OfflinePlayer;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.UUID;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public final class TrollMachine extends JavaPlugin {
 
     private Logger log = null;
     public UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
+    public UUID entomoUuid = UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21");
 
     public TrollMachine() {
         log = getLogger();
@@ -35,6 +36,7 @@ public final class TrollMachine extends JavaPlugin {
         new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
         new JokeCommandExecutor(this); //tells a short joke
         new FranklinCommandExecutor(this); //allows kaityizzy to summon a chicken named Franklin
+        new WolverineCommandExecutor(this); //allows kaityizzy to get regen effect
         new SleepListener(this);
         if(getServer().getPluginManager().getPlugin("ManHunt") != null) //load this listener only if ManHut is loaded
             new ManHuntFailListener(this);

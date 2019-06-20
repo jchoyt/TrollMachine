@@ -1,9 +1,9 @@
 name: TrollMachine
 description: Various non-game changing interruptions in the normal course of playing
 main: com.asharpminer.trollmachine.TrollMachine
-version: 0.2
+version: 0.4
 prefix: "TrollMachine"
-api-version: 1.13
+api-version: 1.14
 softdepend: [ManHunt]
 
 commands:
@@ -22,6 +22,10 @@ commands:
   joke:
     description: Tells a joke
     usage: /joke
+    permission: troll.basic
+  wolverine:
+    description: heals kaityizzy
+    usage: /wolverine
     permission: troll.basic
 
 permissions:
