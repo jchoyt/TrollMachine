@@ -30,8 +30,6 @@ public class WolverineCommandExecutor implements CommandExecutor {
         this.plugin = plugin;           // Store the plugin in situations where you need it.
         logger = plugin.getLogger();
         plugin.getCommand("wolverine").setExecutor(this);
-        //allowedUsers.add(plugin.entomoUuid); //Entomo
-        //allowedUsers.add(new UUID("558b43b7-173c-4951-bdbd-976adb246c09")); //injudicious
         allowedUsers.add(plugin.kaitlynUuid); //kaityizzy
     }
 
@@ -47,8 +45,8 @@ public class WolverineCommandExecutor implements CommandExecutor {
             }
             else {
                 //set player on Fire
-                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 10 * 20, 4)); // seconds * ticks per second
-                player.setFoodLevel(8);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 15 * 20, 4)); // seconds * ticks per second
+                //player.setFoodLevel(8);
             }
             return true;
         } else {

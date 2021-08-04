@@ -60,7 +60,7 @@ public class PlayerChatListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         if(Math.random() < 0.01) {
-            event.setJoinMessage(ChatColor.YELLOW + "Welcome, " + event.getPlayer().getName() + "! Friendly reminder that Kelly is not the boss.");
+            event.setJoinMessage(ChatColor.YELLOW + "Welcome, " + event.getPlayer().getName() + "! Remember to tell Kelly how awesome she is.");
         }
     }
 }
