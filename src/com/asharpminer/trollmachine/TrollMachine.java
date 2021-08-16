@@ -37,6 +37,7 @@ public final class TrollMachine extends JavaPlugin {
         new JokeCommandExecutor(this); //tells a short joke
         new FranklinCommandExecutor(this); //allows kaityizzy to summon a chicken named Franklin
         new WolverineCommandExecutor(this); //allows kaityizzy to get regen effect
+        new EightBallCommandExecutor(this); // gives answers to yes/no questions
         new SleepListener(this);
         if(getServer().getPluginManager().getPlugin("ManHunt") != null) //load this listener only if ManHut is loaded
             new ManHuntFailListener(this);

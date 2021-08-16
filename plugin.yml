@@ -11,6 +11,10 @@ commands:
     description: Trolls a player
     usage: /troll <player>
     permission: troll.admin
+  8ball:
+    description: Gives an answer to a yes/no question
+    usage: /8ball <yes/no question>
+    permission: troll.basic
   cookie:
     description: Opens a fortune cookie
     usage: /cookie

@@ -41,6 +41,7 @@
             <fileset file="fortunes.txt"/>
             <fileset file="death_messages.txt"/>
             <fileset file="one-liners.txt"/>
+            <fileset file="8ball.txt"/>
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <!-- <attribute name="Main-Class" value="nexusbot.NexusBot"/> -->
