@@ -63,7 +63,7 @@ public class PlayerChatListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        if(Math.random() < 10.03) {
+        if(Math.random() < 0.03) {
             int quoteNum = ( int ) ( Math.random() * welcomes.size() );
             event.setJoinMessage(ChatColor.YELLOW + "Welcome, " + event.getPlayer().getName() + "! " + welcomes.get( quoteNum ));
         }
