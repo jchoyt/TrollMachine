@@ -4,6 +4,8 @@
 package com.asharpminer.trollmachine;
 
 import java.util.logging.Logger;
+import java.util.List;
+import java.util.ArrayList;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
@@ -20,15 +22,17 @@ public class PlayerChatListener implements Listener {
     private TrollMachine plugin = null;
     private Logger logger = null;
     private int cakes = 0;
+    private List<String> welcomes = new ArrayList<String>();
 
     public PlayerChatListener(TrollMachine plugin) {
         this.plugin = plugin;  // Store the plugin in situations where you need it.
         logger = plugin.getLogger();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        welcomes.addAll(plugin.loadFile("special_welcome.txt", true));
 
         // set up cooldown for cakes
         BukkitScheduler scheduler = plugin.getServer().getScheduler();
-        scheduler.scheduleAsyncRepeatingTask​( plugin, new Runnable() {
+        scheduler.scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
                 if(cakes > 0) cakes--;
@@ -59,8 +63,9 @@ public class PlayerChatListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        if(Math.random() < 0.01) {
-            event.setJoinMessage(ChatColor.YELLOW + "Welcome, " + event.getPlayer().getName() + "! Remember to tell Kelly how awesome she is.");
+        if(Math.random() < 10.03) {
+            int quoteNum = ( int ) ( Math.random() * welcomes.size() );
+            event.setJoinMessage(ChatColor.YELLOW + "Welcome, " + event.getPlayer().getName() + "! " + welcomes.get( quoteNum ));
         }
     }
 }

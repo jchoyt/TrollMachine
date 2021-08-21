@@ -42,12 +42,12 @@ public class JokeCommandExecutor implements CommandExecutor {
             // clean up our act if Kaitlyn is online
             if(plugin.isKaitlynOnline()) {
                 plugin.sendQuote(jokes, ChatColor.GRAY +
-                    player.getName() + " asked for a joke. " +
-                    ChatColor.LIGHT_PURPLE, "");
+                    player.getName() + " asked for a joke. \n" +
+                    ChatColor.DARK_AQUA, "");
             } else {
                 plugin.sendQuote(allJokes, ChatColor.GRAY +
-                    player.getName() + " asked for a joke. " +
-                    ChatColor.LIGHT_PURPLE, "");
+                    player.getName() + " asked for a joke. \n" +
+                    ChatColor.DARK_AQUA, "");
             }
             return true;
         } else {

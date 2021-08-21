@@ -40,10 +40,10 @@ public class EightBallCommandExecutor implements CommandExecutor {
         //verify a player is sending this
         if (sender instanceof Player) {
             Player player = (Player)sender;
-            plugin.sendQuote(answers, ChatColor.AQUA +
+            plugin.sendQuote(answers, ChatColor.GRAY +
                 player.getName() + " asked, \"" +
                 String.join(" ", args) + "\". \n" +
-                ChatColor.GOLD + "The magic 8 ball says, \""
+                ChatColor.DARK_AQUA + "The magic 8 ball says, \""
                 , "\"");
             return true;
         } else {

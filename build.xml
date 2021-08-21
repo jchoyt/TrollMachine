@@ -3,7 +3,8 @@
     <property name="src" value="./src" />
     <property name="build" value="./build" />
     <property name="doc" value="./doc" />
-    <property name="jarfile" value="${ant.project.name}.jar" />
+    <property name="version" value="0.5.2" />
+    <property name="jarfile" value="${ant.project.name}-${version}.jar" />
     <property name="build.compiler" value="modern" />
     <property name="lib" value="lib"/>
     <dirname property="antfile.dir" file="${ant.file}"/>
@@ -42,6 +43,7 @@
             <fileset file="death_messages.txt"/>
             <fileset file="one-liners.txt"/>
             <fileset file="8ball.txt"/>
+            <fileset file="special_welcome.txt"/>
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <!-- <attribute name="Main-Class" value="nexusbot.NexusBot"/> -->

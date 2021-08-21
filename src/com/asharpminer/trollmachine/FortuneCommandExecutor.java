@@ -35,7 +35,7 @@ public class FortuneCommandExecutor implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player)sender;
             plugin.sendQuote(fortunes, ChatColor.GRAY +
-                player.getName() + " requested a fortune cookie. The fortune reads: " +
+                player.getName() + " requested a fortune cookie. The fortune reads: \n" +
                 ChatColor.DARK_AQUA, "");
             return true;
         } else {
