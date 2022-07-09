@@ -14,8 +14,7 @@ public class SetPotionEffect extends TrollExecutor{
   private PotionEffect effectToApply;
   private String senderMessage;
 
-  public SetPotionEffect(TrollMachine plugin, PotionEffectType e, int duration, String senderMessage ){ //duration in seconds
-    this.plugin = plugin;
+  public SetPotionEffect(PotionEffectType e, int duration, String senderMessage ){ //duration in seconds
     this.effectToApply = new PotionEffect(e, duration*20, 4);
   }
 

@@ -13,8 +13,7 @@ public class SetEffect extends TrollExecutor{
   private EntityEffect effectToApply;
   private String senderMessage;
 
-  public SetEffect(TrollMachine plugin, EntityEffect e, String senderMessage ){
-    this.plugin = plugin;
+  public SetEffect(EntityEffect e, String senderMessage ){
     this.effectToApply = e;
     this.senderMessage = senderMessage;
   }

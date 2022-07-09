@@ -34,22 +34,22 @@ public class TrollCommandExecutor implements CommandExecutor {
 
     public TrollCommandExecutor(TrollMachine plugin) {
         this.plugin = plugin;           // Store the plugin in situations where you need it.
-        trollOptions.add(new Cobweb(plugin));
-        trollOptions.add(new SetEffect(plugin, EntityEffect.FIREWORK_EXPLODE, "puts on a show"));
-        trollOptions.add(new SetEffect(plugin, EntityEffect.HURT_BERRY_BUSH, "pricks their finger"));
-        trollOptions.add(new SetEffect(plugin, EntityEffect.LOVE_HEARTS, "fell in love"));
-        trollOptions.add(new SetEffect(plugin, EntityEffect.VILLAGER_ANGRY, "appears angry"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.DARKNESS, 30, "is having trouble seeing"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.CONFUSION, 12, "appears drunk"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.GLOWING, 120, "is lit up for their enemies to see"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.HARM, 4, "stubbed their toe"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.HUNGER, 60, "is very hungry"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.LEVITATION, 8, "drifts towards built height"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.SLOW, 15, "walks through molassas"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.WITHER, 12, "withers away"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.SLOW_DIGGING, 30, "can't dig for @*#&"));
-        trollOptions.add(new SetPotionEffect(plugin, PotionEffectType.SLOW_FALLING, 120, "defies gravity. Mostly."));
-        trollOptions.add(new Lightning(plugin));
+        trollOptions.add(new Cobweb());
+        trollOptions.add(new SetEffect(EntityEffect.FIREWORK_EXPLODE, "puts on a show"));
+        trollOptions.add(new SetEffect(EntityEffect.HURT_BERRY_BUSH, "pricks their finger"));
+        trollOptions.add(new SetEffect(EntityEffect.LOVE_HEARTS, "fell in love"));
+        trollOptions.add(new SetEffect(EntityEffect.VILLAGER_ANGRY, "appears angry"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.DARKNESS, 30, "is having trouble seeing"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.CONFUSION, 12, "appears drunk"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.GLOWING, 120, "is lit up for their enemies to see"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.HARM, 4, "stubbed their toe"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.HUNGER, 60, "is very hungry"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.LEVITATION, 8, "drifts towards built height"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW, 15, "walks through molassas"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.WITHER, 12, "withers away"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_DIGGING, 30, "can't dig for @*#&"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_FALLING, 120, "defies gravity. Mostly."));
+        trollOptions.add(new Lightning());
 
     }
 

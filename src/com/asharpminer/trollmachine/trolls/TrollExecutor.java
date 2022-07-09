@@ -6,8 +6,6 @@ import com.asharpminer.trollmachine.TrollMachine;
 
 public abstract class TrollExecutor {
 
-  protected TrollMachine plugin;
-
   /**
    * Afflicts the target and notifies the sender what happened.  If sender is
    * null, it backfired and no sender notification is necessary.

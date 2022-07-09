@@ -5,7 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] 2022-07-XX
 ### Added
-- Added /troll command
+- Added /troll command and first set of effects
 - Updated to compile against 1.19
 
 ### Changed

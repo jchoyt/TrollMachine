@@ -9,9 +9,6 @@ import org.bukkit.Material;
 import com.asharpminer.trollmachine.TrollMachine;
 
 public class Cobweb extends TrollExecutor{
-  public Cobweb(TrollMachine plugin){
-    this.plugin = plugin;
-  }
 
   public boolean gettim(Player sender, Player target){
     Location loc = target.getLocation();

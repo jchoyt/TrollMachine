@@ -12,8 +12,7 @@ public class Lightning extends TrollExecutor{
 
   private Random r = new Random();
 
-  public Lightning(TrollMachine plugin){
-    this.plugin = plugin;
+  public Lightning(){
   }
 
   public boolean gettim(Player sender, Player target){
