@@ -10,6 +10,6 @@ public abstract class TrollExecutor {
    * Afflicts the target and notifies the sender what happened.  If sender is
    * null, it backfired and no sender notification is necessary.
    */
-  public abstract boolean gettim( Player sender, Player target);
+  public abstract boolean gettem( Player sender, Player target);
 
 }

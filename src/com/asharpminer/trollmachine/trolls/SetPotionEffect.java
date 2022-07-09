@@ -16,12 +16,16 @@ public class SetPotionEffect extends TrollExecutor{
 
   public SetPotionEffect(PotionEffectType e, int duration, String senderMessage ){ //duration in seconds
     this.effectToApply = new PotionEffect(e, duration*20, 4);
+    this.senderMessage = senderMessage;
   }
 
-  public boolean gettim(Player sender, Player target){
+  public boolean gettem(Player sender, Player target){
     target.addPotionEffect(effectToApply);
     if(null != sender) {
       sender.sendMessage(target.getDisplayName() + " " + senderMessage);
+      target.sendMessage("Compliments of " + sender.getName());
+    } else {
+      target.sendMessage("Well that backfired.");
     }
 
     return true;

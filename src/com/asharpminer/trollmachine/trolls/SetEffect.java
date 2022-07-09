@@ -18,13 +18,15 @@ public class SetEffect extends TrollExecutor{
     this.senderMessage = senderMessage;
   }
 
-  public boolean gettim(Player sender, Player target){
+  public boolean gettem(Player sender, Player target){
     target.playEffect(effectToApply);
 
     if(null != sender) {
       sender.sendMessage(target.getDisplayName() + " " + senderMessage);
+      target.sendMessage("Compliments of " + sender.getName());
+    } else {
+      target.sendMessage("Well that backfired.");
     }
-
     return true;
   }
 }

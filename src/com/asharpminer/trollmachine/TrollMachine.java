@@ -23,7 +23,6 @@ public final class TrollMachine extends JavaPlugin {
     private Logger log = null;
     public final UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
     public final UUID entomoUuid = UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21");
-    private long cooldown = 5 * 60 * 1000;  //five minutes
 
     public TrollMachine() {
         log = getLogger();
@@ -38,9 +37,10 @@ public final class TrollMachine extends JavaPlugin {
         new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
         new JokeCommandExecutor(this); //tells a short joke
         new FranklinCommandExecutor(this); //allows kaityizzy to summon a chicken named Franklin
-        new WolverineCommandExecutor(this); //allows kaityizzy to get regen effect
+        // new WolverineCommandExecutor(this); //allows kaityizzy to get regen effect
         new EightBallCommandExecutor(this); // gives answers to yes/no questions
-        new SleepListener(this);
+        new SleepListener(this); // wishes people lovely dreams
+        new TrollCommandExecutor(this); // allows players to troll one another
         if(getServer().getPluginManager().getPlugin("ManHunt") != null) //load this listener only if ManHut is loaded
             new ManHuntFailListener(this);
     }

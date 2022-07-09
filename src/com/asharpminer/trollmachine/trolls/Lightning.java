@@ -15,7 +15,7 @@ public class Lightning extends TrollExecutor{
   public Lightning(){
   }
 
-  public boolean gettim(Player sender, Player target){
+  public boolean gettem(Player sender, Player target){
     Location loc = target.getLocation();
     World w = target.getWorld();
 
@@ -29,6 +29,9 @@ public class Lightning extends TrollExecutor{
 
     if(null != sender) {
       sender.sendMessage(target.getDisplayName() + " is not happy with Thor.");
+      target.sendMessage("Light show compliments of " + sender.getName());
+    } else {
+      target.sendMessage("Well that backfired.");
     }
 
     return true;
