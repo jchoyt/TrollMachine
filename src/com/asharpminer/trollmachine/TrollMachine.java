@@ -21,8 +21,9 @@ import org.bukkit.scheduler.BukkitScheduler;
 public final class TrollMachine extends JavaPlugin {
 
     private Logger log = null;
-    public UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
-    public UUID entomoUuid = UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21");
+    public final UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
+    public final UUID entomoUuid = UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21");
+    private long cooldown = 5 * 60 * 1000;  //five minutes
 
     public TrollMachine() {
         log = getLogger();
@@ -32,6 +33,7 @@ public final class TrollMachine extends JavaPlugin {
     public void onEnable() {
         // load up listeners
         new PlayerChatListener(this);
+        new TrollCommandExecutor(this); // troll fellow players
         new PlayerDeathListener(this); // random death messages when a player dies
         new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
         new JokeCommandExecutor(this); //tells a short joke

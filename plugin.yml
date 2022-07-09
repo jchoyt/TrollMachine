@@ -1,16 +1,16 @@
 name: TrollMachine
 description: Various non-game changing interruptions in the normal course of playing
 main: com.asharpminer.trollmachine.TrollMachine
-version: 0.5.2
+version: 0.6.0
 prefix: "TrollMachine"
-api-version: 1.17
+api-version: 1.19
 softdepend: [ManHunt]
 
 commands:
   troll:
     description: Trolls a player
     usage: /troll <player>
-    permission: troll.admin
+    permission: troll.basic
   8ball:
     description: Gives an answer to a yes/no question
     usage: /8ball <yes/no question>

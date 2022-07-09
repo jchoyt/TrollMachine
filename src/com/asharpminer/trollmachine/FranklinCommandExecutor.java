@@ -38,7 +38,7 @@ public class FranklinCommandExecutor implements CommandExecutor {
         //verify a player is sending this
         if (sender instanceof Player) {
             Player player = (Player)sender;
-            //verify it's kelly, kaity, or me
+            //verify player can use this
             if(allowedUsers.contains(player.getUniqueId())) {
                 // summon the Franklin
                 Location playerLocation = player.getLocation();

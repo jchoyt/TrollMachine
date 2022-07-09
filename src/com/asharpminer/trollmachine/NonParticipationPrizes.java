@@ -12,28 +12,24 @@ import java.util.Map;
 
 public class NonParticipationPrizes {
     public static List<Material> crapPrizes = (List<Material>)Arrays.asList(
-        Material.ANDESITE,
+        Material.ARROW,
+        Material.BONE_BLOCK,
         Material.BOWL,
-        Material.COBBLESTONE_SLAB,
+        Material.BUDDING_AMETHYST,
         Material.COBBLESTONE_WALL,
-        Material.DIORITE,
+        Material.DEAD_BUSH,
+        Material.DEAD_FIRE_CORAL_BLOCK,
         Material.DIRT,
         Material.FLINT,
         Material.GLASS_BOTTLE,
         Material.GRANITE,
         Material.GRAVEL,
+        Material.MANGROVE_BUTTON,
+        Material.MUD,
+        Material.ORANGE_CARPET,
         Material.POISONOUS_POTATO,
-        Material.ROTTEN_FLESH,
         Material.STICK,
         Material.STONE_AXE,
-        Material.STONE_HOE,
-        Material.STONE_PICKAXE,
-        Material.STONE_SHOVEL,
-        Material.STONE_SWORD,
-        Material.WOODEN_AXE,
-        Material.WOODEN_HOE,
-        Material.WOODEN_PICKAXE,
-        Material.WOODEN_SHOVEL,
-        Material.WOODEN_SWORD
+        Material.WOODEN_HOE
     );
 }

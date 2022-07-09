@@ -1,0 +1,12 @@
+- [ ] freezing
+- [x] add cobweb to their location
+- [ ] fake creeper sound
+- [x] lightening 0 - 10 blocks away
+- [x] couple of seconds of levitation
+- [x] extreme haste or speed or slowness
+- [x] mining fatigue (Do SetEffect class)
+- [x] nausea
+- [x] jump boost
+- [x] hunger
+- [ ] fake on fire
+- [ ] rain garbage on them
