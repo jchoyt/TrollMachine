@@ -7,6 +7,7 @@ package com.asharpminer.trollmachine;
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.UUID;
 import java.util.Map;
@@ -22,12 +24,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import com.asharpminer.trollmachine.trolls.Cobweb;
-import com.asharpminer.trollmachine.trolls.SetEffect;
-import com.asharpminer.trollmachine.trolls.SetPotionEffect;
-import com.asharpminer.trollmachine.trolls.TrollExecutor;
-import com.asharpminer.trollmachine.trolls.Lightning;
-
+import com.asharpminer.trollmachine.trolls.*;
+import com.asharpminer.trollmachine.TrollCommandExecutor;
 
 public class TrollCommandExecutor implements CommandExecutor {
     private final TrollMachine plugin;
@@ -44,7 +42,8 @@ public class TrollCommandExecutor implements CommandExecutor {
         PluginCommand c = this.plugin.getCommand("troll");  //don't forget to update plugin.yml
         c.setExecutor(this);
 
-        trollOptions.add(new Cobweb());
+        trollOptions.add(new Cobweb(this));
+        trollOptions.add(new Lightning(this));
         trollOptions.add(new SetEffect(EntityEffect.HURT_BERRY_BUSH, "pricks their finger"));
         trollOptions.add(new SetEffect(EntityEffect.TELEPORT_ENDER, "sees purple sparkles"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.DARKNESS, 30, "is having trouble seeing"));
@@ -54,9 +53,11 @@ public class TrollCommandExecutor implements CommandExecutor {
         trollOptions.add(new SetPotionEffect(PotionEffectType.LEVITATION, 1, "drifts towards built height"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW, 15, "walks through molassas"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_DIGGING, 30, "can't dig for @*#&"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_FALLING, 30, "defies gravity. Mostly."));
-        trollOptions.add(new Lightning());
-
+        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_FALLING, 30, "defies gravity. Mostly"));
+        trollOptions.add(new PlaySound(this, Sound.ENTITY_CREEPER_PRIMED, "hears a creeper"));
+        trollOptions.add(new PlaySound(this, Sound.ENTITY_ENDERMAN_SCREAM, "hears an angry Enderman"));
+        trollOptions.add(new PlaySound(this, Sound.ENTITY_GHAST_SCREAM, "hears a distorted cry"));
+        trollOptions.add(new PlaySound(this, Sound.ENTITY_WARDEN_DIG, "hears something digging"));
     }
 
     @Override
@@ -113,5 +114,15 @@ public class TrollCommandExecutor implements CommandExecutor {
             sender.sendMessage("You must be a player!");
             return false;
         }
+    }
+
+    public void sendDelayedMessage( Player target, String message, long tickDelay) {
+      BukkitScheduler scheduler = target.getServer().getScheduler();
+      scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
+          @Override
+          public void run() {
+              target.sendMessage(message);
+          }
+      }, tickDelay);
     }
 }

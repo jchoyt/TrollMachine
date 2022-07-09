@@ -6,9 +6,13 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.Material;
 
-import com.asharpminer.trollmachine.TrollMachine;
+import com.asharpminer.trollmachine.TrollCommandExecutor;
 
 public class Cobweb extends TrollExecutor{
+
+  public Cobweb(TrollCommandExecutor controller){
+    setController(controller);
+  }
 
   // sets the block at the player's feed to cobweb
   public boolean gettem(Player sender, Player target){
@@ -19,7 +23,7 @@ public class Cobweb extends TrollExecutor{
 
     if(null != sender) {
       sender.sendMessage(target.getDisplayName() + " finds themself in a sticky situation.");
-      target.sendMessage("Free string compliments of " + sender.getName());
+      controller.sendDelayedMessage(target, "Free string compliments of " + sender.getName(), 60L);
     } else {
       target.sendMessage("Well that backfired.");
     }

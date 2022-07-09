@@ -14,6 +14,7 @@ public class SetEffect extends TrollExecutor{
   private String senderMessage;
 
   public SetEffect(EntityEffect e, String senderMessage ){
+    // setController(controller);
     this.effectToApply = e;
     this.senderMessage = senderMessage;
   }
