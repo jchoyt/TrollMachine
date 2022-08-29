@@ -15,7 +15,6 @@ public class NonParticipationPrizes {
         Material.ARROW,
         Material.BONE_BLOCK,
         Material.BOWL,
-        Material.BUDDING_AMETHYST,
         Material.COBBLESTONE_WALL,
         Material.DEAD_BUSH,
         Material.DEAD_FIRE_CORAL_BLOCK,
