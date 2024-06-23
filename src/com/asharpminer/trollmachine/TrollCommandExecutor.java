@@ -47,12 +47,12 @@ public class TrollCommandExecutor implements CommandExecutor {
         trollOptions.add(new SetEffect(EntityEffect.HURT_BERRY_BUSH, "pricks their finger"));
         trollOptions.add(new SetEffect(EntityEffect.TELEPORT_ENDER, "sees purple sparkles"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.DARKNESS, 30, "is having trouble seeing"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.CONFUSION, 12, "appears drunk"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.NAUSEA, 12, "appears drunk"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.GLOWING, 120, "is lit up for their enemies to see"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.HUNGER, 30, "is very hungry"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.LEVITATION, 1, "drifts towards built height"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW, 15, "walks through molassas"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_DIGGING, 30, "can't dig for @*#&"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOWNESS, 15, "walks through molassas"));
+        trollOptions.add(new SetPotionEffect(PotionEffectType.MINING_FATIGUE, 30, "can't dig for @*#&"));
         trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_FALLING, 30, "defies gravity. Mostly"));
         trollOptions.add(new PlaySound(this, Sound.ENTITY_CREEPER_PRIMED, "hears a creeper"));
         trollOptions.add(new PlaySound(this, Sound.ENTITY_ENDERMAN_SCREAM, "hears an angry Enderman"));

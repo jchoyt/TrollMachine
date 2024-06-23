@@ -44,9 +44,9 @@ public class WolverineCommandExecutor implements CommandExecutor {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 10 * 20, 2)); // seconds * ticks per second
             }
             else {
-                //set player on Fire
-                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 15 * 20, 4)); // seconds * ticks per second
-                //player.setFoodLevel(8);
+                //make player sick
+                player.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 15 * 20, 4)); // seconds * ticks per second
+                player.setFoodLevel(8);
             }
             return true;
         } else {

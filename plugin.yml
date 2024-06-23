@@ -1,9 +1,9 @@
 name: TrollMachine
 description: Various non-game changing interruptions in the normal course of playing
 main: com.asharpminer.trollmachine.TrollMachine
-version: 1.0.1
+version: 1.0.2
 prefix: "TrollMachine"
-api-version: 1.19
+api-version: 1.21
 softdepend: [ManHunt]
 
 commands:
