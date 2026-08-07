@@ -21,14 +21,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class JokeCommandExecutor implements CommandExecutor {
     private TrollMachine plugin;
     private List<String> jokes = new ArrayList<String>();
-    private List<String> allJokes = new ArrayList<String>();  // all jokes
     private Logger logger = null;
 
     public JokeCommandExecutor(TrollMachine plugin) {
         this.plugin = plugin;           // Store the plugin in situations where you need it.
-        jokes = plugin.loadFile("one-liners.txt", true);  // jokes that don't get kelly awkward questions
-        allJokes.addAll(jokes);
-        allJokes.addAll(plugin.loadFile("blue-one-liners.txt", true));
+        jokes = plugin.loadFile("one-liners.txt", true);
         logger = plugin.getLogger();
         PluginCommand c = this.plugin.getCommand("joke");  //don't forget to update plugin.yml
         c.setExecutor(this);
@@ -39,16 +36,9 @@ public class JokeCommandExecutor implements CommandExecutor {
         //verify a player is sending this
         if (sender instanceof Player) {
             Player player = (Player)sender;
-            // clean up our act if Kaitlyn is online
-            if(plugin.isKaitlynOnline()) {
-                plugin.sendQuote(jokes, ChatColor.GRAY +
-                    player.getName() + " asked for a joke. \n" +
-                    ChatColor.DARK_AQUA, "");
-            } else {
-                plugin.sendQuote(allJokes, ChatColor.GRAY +
-                    player.getName() + " asked for a joke. \n" +
-                    ChatColor.DARK_AQUA, "");
-            }
+            plugin.sendQuote(jokes, ChatColor.GRAY +
+                player.getName() + " asked for a joke. \n" +
+                ChatColor.DARK_AQUA, "");
             return true;
         } else {
             sender.sendMessage("You must be a player!");
