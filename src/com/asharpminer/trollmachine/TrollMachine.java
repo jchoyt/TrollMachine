@@ -36,8 +36,6 @@ public final class TrollMachine extends JavaPlugin {
         new PlayerDeathListener(this); // random death messages when a player dies
         new FortuneCommandExecutor(this);  // /cookie commmand - returns a fortune cookie fortune
         new JokeCommandExecutor(this); //tells a short joke
-        new FranklinCommandExecutor(this); //allows kaityizzy to summon a chicken named Franklin
-        // new WolverineCommandExecutor(this); //allows kaityizzy to get regen effect
         new EightBallCommandExecutor(this); // gives answers to yes/no questions
         new SleepListener(this); // wishes people lovely dreams
         new TrollCommandExecutor(this); // allows players to troll one another
