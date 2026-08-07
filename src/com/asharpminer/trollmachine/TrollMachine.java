@@ -22,7 +22,6 @@ public final class TrollMachine extends JavaPlugin {
 
     private Logger log = null;
     public final UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
-    public final UUID entomoUuid = UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21");
 
     public TrollMachine() {
         log = getLogger();
