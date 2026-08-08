@@ -21,6 +21,25 @@ repositories {
     }
 }
 
+// ManHunt.jar (see libs/README.md) is a soft dependency vendored by hand and
+// not committed. When it's missing — e.g. on a fresh CI checkout — compile a
+// tiny stand-in for the one class TrollMachine references from it, so the
+// whole project (including ManHuntFailListener and its caller in
+// TrollMachine) still compiles and the test suite still runs.
+//
+// The stub lives in its own source set, added only to the *compile*
+// classpath (never to sourceSets.main), so it's never packaged into the
+// plugin jar — a real deployed jar must never risk shadowing ManHunt's own
+// AfkEvent class if that plugin is also installed on the server.
+def manHuntJarPresent = file('libs/ManHunt.jar').exists()
+if (!manHuntJarPresent) {
+    sourceSets {
+        manHuntStub {
+            java.srcDir('ci/manhunt-stub')
+        }
+    }
+}
+
 dependencies {
     // Provided by the Spigot/Paper server at runtime; never bundled into the
     // plugin jar. Tests need it on their own compile+runtime classpath too,
@@ -29,11 +48,17 @@ dependencies {
     testCompileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
     testRuntimeOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
 
-    // Soft dependency (see plugin.yml's softdepend). Not published to any
-    // Maven repo, so it's vendored locally; see libs/README.md.
-    compileOnly files('libs/ManHunt.jar')
-    testCompileOnly files('libs/ManHunt.jar')
-    testRuntimeOnly files('libs/ManHunt.jar')
+    if (manHuntJarPresent) {
+        // Soft dependency (see plugin.yml's softdepend). Not published to
+        // any Maven repo, so it's vendored locally; see libs/README.md.
+        compileOnly files('libs/ManHunt.jar')
+        testCompileOnly files('libs/ManHunt.jar')
+        testRuntimeOnly files('libs/ManHunt.jar')
+    } else {
+        manHuntStubCompileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
+        compileOnly sourceSets.manHuntStub.output
+        testCompileOnly sourceSets.manHuntStub.output
+    }
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.16.0'
