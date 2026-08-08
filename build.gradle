@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.asharpminer'
+version = '1.0.2'
+
+java {
+    // Pins which JDK compiles/tests this project, independent of whatever
+    // `java` happens to be first on a given machine's PATH.
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+    // Provided by the Spigot/Paper server at runtime; never bundled into the
+    // plugin jar. Tests need it on their own compile+runtime classpath too,
+    // since they run in a plain JVM with no real server providing it.
+    compileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
+    testCompileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
+    testRuntimeOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
+
+    // Soft dependency (see plugin.yml's softdepend). Not published to any
+    // Maven repo, so it's vendored locally; see libs/README.md.
+    compileOnly files('libs/ManHunt.jar')
+    testCompileOnly files('libs/ManHunt.jar')
+    testRuntimeOnly files('libs/ManHunt.jar')
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.16.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Keeps the compiled bytecode compatible with older server JVMs,
+    // regardless of which JDK actually runs the compiler.
+    options.release = 17
+}
+
+test {
+    useJUnit()
+    // Keeps Mockito's Byte Buddy working on JDKs newer than it officially supports yet.
+    jvmArgs '-Dnet.bytebuddy.experimental=true'
+}
+
+def pluginVersion = version // captured at configuration time; avoids referencing
+                             // `project` from within the task's execution-time closure
+processResources {
+    filesMatching('plugin.yml') {
+        expand(version: pluginVersion)
+    }
+}
+
+tasks.named('jar') {
+    archiveBaseName = 'TrollMachine'
+}

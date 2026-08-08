@@ -1,0 +1,48 @@
+# TrollMachine
+
+A Bukkit/Spigot/Paper Minecraft plugin providing various non-game-changing
+interruptions (`/troll`, `/8ball`, `/cookie`, `/joke`, random death messages,
+sleep messages, and ManHunt integration).
+
+## Building
+
+Requires JDK 21 (a compatible Gradle toolchain is picked automatically if one
+is already installed; nothing needs to be pre-installed by hand beyond that).
+
+```
+./gradlew build
+```
+
+This compiles the plugin, runs the test suite, and produces
+`build/libs/TrollMachine-<version>.jar`.
+
+Other useful tasks:
+
+```
+./gradlew test   # just run the tests
+./gradlew jar    # just build the plugin jar, skipping tests
+./gradlew clean  # remove build output
+```
+
+`spigot-api` is resolved automatically from Spigot's Maven repository — no
+manual BuildTools step needed. The one dependency that *does* need to be
+vendored by hand is the optional [ManHunt plugin](https://github.com/jchoyt/ManHunt)
+(a soft dependency, used only for `ManHuntFailListener`); see `libs/README.md`.
+
+### If your default `java` is newer than Gradle supports
+
+Gradle occasionally lags a few months behind the newest JDK release. If
+`./gradlew` fails to start at all (rather than failing to compile), point it
+at an older installed JDK instead:
+
+```
+JAVA_HOME=/path/to/an/older/jdk ./gradlew build
+```
+
+## Project layout
+
+Standard Gradle/Maven layout:
+- `src/main/java` — plugin source
+- `src/main/resources` — `plugin.yml` and the flavor-text files it loads at runtime
+- `src/test/java` — unit tests (JUnit 4 + Mockito)
+- `libs/` — the one dependency that can't be fetched automatically (see above)

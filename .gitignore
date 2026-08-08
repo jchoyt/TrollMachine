@@ -17,6 +17,8 @@
 *.zip
 *.tar.gz
 *.rar
+# ...except the Gradle Wrapper jar itself, which must be committed
+!gradle/wrapper/gradle-wrapper.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -24,5 +26,6 @@ hs_err_pid*
 # Mac crap files
 .DS_Store
 
-# Test build output
-test-build/
+# Gradle
+.gradle/
+build/
