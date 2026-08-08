@@ -16,6 +16,10 @@ is already installed; nothing needs to be pre-installed by hand beyond that).
 This compiles the plugin, runs the test suite, and produces
 `build/libs/TrollMachine-<version>.jar`.
 
+The plugin version is set in one place — the `version` property near the top
+of `build.gradle` — and templated into `plugin.yml` at build time; don't set
+it in `plugin.yml` directly.
+
 Other useful tasks:
 
 ```
