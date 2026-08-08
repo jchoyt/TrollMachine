@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # build.gradle dependencies (spigot-api, JUnit, Mockito)
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Actions used by .github/workflows/build.yml
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

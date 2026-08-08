@@ -36,7 +36,9 @@ to a compile-only stub so everything still builds; see `libs/README.md`.
 
 Every push and pull request runs `./gradlew build` via GitHub Actions
 (`.github/workflows/build.yml`) on JDK 21, using the ManHunt stub described
-above.
+above. Dependabot (`.github/dependabot.yml`) opens a PR whenever a Gradle
+dependency or a workflow's own GitHub Action has a newer version, weekly;
+CI validates those PRs the same as any other.
 
 ### If your default `java` is newer than Gradle supports
 

@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - /jokes works when kaityizzy is online, but it won't use the blue jokes listener
 - Replaced the Ant build with Gradle; spigot-api is now resolved from Spigot's Maven repo instead of built/vendored by hand. See README.md.
 - Added GitHub Actions CI to build and test on every push/PR.
+- Added Dependabot for build.gradle dependencies and GitHub Actions versions.
 
 ### Fixed
 - permission for /franklin was munged by a misplaced copypasta
