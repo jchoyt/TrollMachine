@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import com.asharpminer.trollmachine.trolls.*;
@@ -34,30 +35,49 @@ public class TrollCommandExecutor implements CommandExecutor {
     private Map<UUID, Long> lastTrolled = new HashMap<UUID, Long>(); // last time a player trolled someone
     private List<TrollExecutor> trollOptions = new ArrayList<TrollExecutor>();
     private int cooldown = 5 * 60 * 1000;  //five minutes
+    // package-private so tests can inject a seeded Random for deterministic backfire/pick behavior
+    Random random = new Random();
 
 
     public TrollCommandExecutor(TrollMachine plugin) {
+        this(plugin, null);
+    }
+
+    /**
+     * @param trollOptions the effects /troll can pick from; pass null to use the
+     *                      real, default set. Tests can supply their own lightweight
+     *                      {@link TrollExecutor} stubs instead, since building the real
+     *                      effects touches Bukkit's Sound/PotionEffectType registries,
+     *                      which need a live server.
+     */
+    TrollCommandExecutor(TrollMachine plugin, List<TrollExecutor> trollOptions) {
         this.plugin = plugin;           // Store the plugin in situations where you need it.
         logger = plugin.getLogger();
         PluginCommand c = this.plugin.getCommand("troll");  //don't forget to update plugin.yml
         c.setExecutor(this);
 
-        trollOptions.add(new Cobweb(this));
-        trollOptions.add(new Lightning(this));
-        trollOptions.add(new SetEffect(EntityEffect.HURT_BERRY_BUSH, "pricks their finger"));
-        trollOptions.add(new SetEffect(EntityEffect.TELEPORT_ENDER, "sees purple sparkles"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.DARKNESS, 30, "is having trouble seeing"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.NAUSEA, 12, "appears drunk"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.GLOWING, 120, "is lit up for their enemies to see"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.HUNGER, 30, "is very hungry"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.LEVITATION, 1, "drifts towards built height"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOWNESS, 15, "walks through molassas"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.MINING_FATIGUE, 30, "can't dig for @*#&"));
-        trollOptions.add(new SetPotionEffect(PotionEffectType.SLOW_FALLING, 30, "defies gravity. Mostly"));
-        trollOptions.add(new PlaySound(this, Sound.ENTITY_CREEPER_PRIMED, "hears a creeper"));
-        trollOptions.add(new PlaySound(this, Sound.ENTITY_ENDERMAN_SCREAM, "hears an angry Enderman"));
-        trollOptions.add(new PlaySound(this, Sound.ENTITY_GHAST_SCREAM, "hears a distorted cry"));
-        trollOptions.add(new PlaySound(this, Sound.ENTITY_WARDEN_DIG, "hears something digging"));
+        this.trollOptions = trollOptions != null ? trollOptions : buildDefaultTrollOptions();
+    }
+
+    private List<TrollExecutor> buildDefaultTrollOptions() {
+        List<TrollExecutor> options = new ArrayList<TrollExecutor>();
+        options.add(new Cobweb(this));
+        options.add(new Lightning(this));
+        options.add(new SetEffect(EntityEffect.HURT_BERRY_BUSH, "pricks their finger"));
+        options.add(new SetEffect(EntityEffect.TELEPORT_ENDER, "sees purple sparkles"));
+        options.add(new SetPotionEffect(PotionEffectType.DARKNESS, 30, "is having trouble seeing"));
+        options.add(new SetPotionEffect(PotionEffectType.NAUSEA, 12, "appears drunk"));
+        options.add(new SetPotionEffect(PotionEffectType.GLOWING, 120, "is lit up for their enemies to see"));
+        options.add(new SetPotionEffect(PotionEffectType.HUNGER, 30, "is very hungry"));
+        options.add(new SetPotionEffect(PotionEffectType.LEVITATION, 1, "drifts towards built height"));
+        options.add(new SetPotionEffect(PotionEffectType.SLOWNESS, 15, "walks through molassas"));
+        options.add(new SetPotionEffect(PotionEffectType.MINING_FATIGUE, 30, "can't dig for @*#&"));
+        options.add(new SetPotionEffect(PotionEffectType.SLOW_FALLING, 30, "defies gravity. Mostly"));
+        options.add(new PlaySound(this, Sound.ENTITY_CREEPER_PRIMED, "hears a creeper"));
+        options.add(new PlaySound(this, Sound.ENTITY_ENDERMAN_SCREAM, "hears an angry Enderman"));
+        options.add(new PlaySound(this, Sound.ENTITY_GHAST_SCREAM, "hears a distorted cry"));
+        options.add(new PlaySound(this, Sound.ENTITY_WARDEN_DIG, "hears something digging"));
+        return options;
     }
 
     @Override
@@ -85,19 +105,9 @@ public class TrollCommandExecutor implements CommandExecutor {
             }
 
             // check if this backfires
-            // Do the cooldown
-            long currentTime = System.currentTimeMillis();
             UUID senderUuid = player.getUniqueId();
-
-            // do the cooldown
-            int cooldownsPassed = lastTrolled.containsKey(senderUuid) ? (int)(currentTime - lastTrolled.get(senderUuid)) / cooldown : 0;
-            int newCount = peopleTrolled.containsKey(senderUuid) ? peopleTrolled.get(senderUuid) + 1 : 1;
-            newCount = Math.max(0, ( newCount - cooldownsPassed));
-            peopleTrolled.put(senderUuid, newCount);
-            lastTrolled.put(senderUuid, currentTime);
-
-            // start with 5% chance and add 15% for every count
-            boolean backfired = Math.random() < (0.05 + newCount * 0.15);
+            int newCount = registerTroll(senderUuid, System.currentTimeMillis());
+            boolean backfired = rollBackfire(newCount);
 
             if(backfired) {
               target = player;
@@ -105,15 +115,38 @@ public class TrollCommandExecutor implements CommandExecutor {
             }
 
            // do something slightly annoying to someone
-           double randomValue = Math.random();
-           int trollNum = (int) (randomValue * trollOptions.size());
-           trollOptions.get(trollNum).gettem(player, target);
+           pickTrollOption().gettem(player, target);
 
             return true;
         } else {
             sender.sendMessage("You must be a player!");
             return false;
         }
+    }
+
+    /**
+     * Updates the cooldown bookkeeping for a player who just used /troll and
+     * returns their resulting "trolled recently" count, which drives the
+     * backfire odds in {@link #rollBackfire}.
+     */
+    int registerTroll(UUID senderUuid, long currentTime) {
+        int cooldownsPassed = lastTrolled.containsKey(senderUuid) ? (int)(currentTime - lastTrolled.get(senderUuid)) / cooldown : 0;
+        int newCount = peopleTrolled.containsKey(senderUuid) ? peopleTrolled.get(senderUuid) + 1 : 1;
+        newCount = Math.max(0, ( newCount - cooldownsPassed));
+        peopleTrolled.put(senderUuid, newCount);
+        lastTrolled.put(senderUuid, currentTime);
+        return newCount;
+    }
+
+    /** Start with a 5% chance and add 15% for every recent troll. */
+    boolean rollBackfire(int newCount) {
+        return random.nextDouble() < (0.05 + newCount * 0.15);
+    }
+
+    /** Picks one of the registered troll effects at random. */
+    TrollExecutor pickTrollOption() {
+        int trollNum = (int) (random.nextDouble() * trollOptions.size());
+        return trollOptions.get(trollNum);
     }
 
     public void sendDelayedMessage( Player target, String message, long tickDelay) {

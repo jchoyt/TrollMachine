@@ -23,3 +23,6 @@ hs_err_pid*
 
 # Mac crap files
 .DS_Store
+
+# Test build output
+test-build/

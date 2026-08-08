@@ -7,10 +7,20 @@
     <property name="jarfile" value="${ant.project.name}-${version}.jar" />
     <property name="build.compiler" value="modern" />
     <property name="lib" value="lib"/>
+    <property name="test.src" value="./test" />
+    <property name="test.lib" value="test-lib" />
+    <property name="test.build" value="./test-build" />
+    <property name="test.reports" value="./test-build/reports" />
     <dirname property="antfile.dir" file="${ant.file}"/>
 
     <path id="jarspath">
         <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="testlibpath">
+        <fileset dir="${test.lib}">
             <include name="**/*.jar"/>
         </fileset>
     </path>
@@ -35,6 +45,43 @@
         </javac>
     </target>
 
+    <target name="compile-tests" depends="compile">
+        <mkdir dir="${test.build}" />
+        <javac target="17" source="17"
+            srcdir="${test.src}" destdir="${test.build}" deprecation="on"
+            debug="on" description="Compile the test code from ${test.src} into ${test.build}"
+            includeantruntime="false">
+            <include name="**/*.java" />
+            <classpath>
+                <path refid="jarspath" />
+                <path refid="testlibpath" />
+                <pathelement location="${build}" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile-tests" description="Run the unit tests">
+        <mkdir dir="${test.reports}" />
+        <junit printsummary="yes" haltonfailure="yes" fork="yes">
+            <!-- Byte Buddy (a Mockito dependency) may lag the newest JDK; this keeps
+                 it working on JDKs it doesn't officially support yet. -->
+            <jvmarg value="-Dnet.bytebuddy.experimental=true" />
+            <classpath>
+                <path refid="jarspath" />
+                <path refid="testlibpath" />
+                <pathelement location="${build}" />
+                <pathelement location="${test.build}" />
+            </classpath>
+            <formatter type="plain" usefile="false" />
+            <formatter type="xml" />
+            <batchtest todir="${test.reports}">
+                <fileset dir="${test.src}">
+                    <include name="**/*Test.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
     <target name="jar" depends="compile">
         <jar jarfile="${jarfile}" basedir="${build}" description="rebuild the jarfile">
             <fileset file="config.yml"/>
@@ -56,6 +103,7 @@
     <target name="clean" description="Delete the build and javadoc directory trees and the ${jarfile}">
         <delete dir="${doc}" />
         <delete dir="${build}" />
+        <delete dir="${test.build}" />
         <delete file="${jarfile}" />
         <delete dir="${antfile.dir}">
             <include name="*.tar"/>

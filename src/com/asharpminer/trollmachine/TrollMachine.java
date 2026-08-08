@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -19,6 +20,8 @@ import org.bukkit.scheduler.BukkitScheduler;
 public final class TrollMachine extends JavaPlugin {
 
     private Logger log = null;
+    // package-private so tests can inject a seeded Random for deterministic quote selection
+    Random random = new Random();
 
     public TrollMachine() {
         log = getLogger();
@@ -92,12 +95,18 @@ public final class TrollMachine extends JavaPlugin {
     *
     * @return DOCUMENT ME!
     */
+    // Package-private seam over the (protected, so not test-visible) JavaPlugin#getTextResource,
+    // so tests can stub the resource lookup without a running server.
+    Reader loadResource(String filename) {
+        return getTextResource(filename);
+    }
+
     public List<String> loadFile( String filename, boolean caseSensitive )
     {
         List<String> list = new ArrayList<String>();
         try
         {
-            Reader inFile = this.getTextResource(filename);
+            Reader inFile = this.loadResource(filename);
             if(inFile == null) return list;
             BufferedReader br = new BufferedReader(inFile);
             String tmp;
@@ -129,7 +138,7 @@ public final class TrollMachine extends JavaPlugin {
             return;
         }
 
-        double randomValue = Math.random(  );
+        double randomValue = random.nextDouble();
         int quoteNum = ( int ) ( randomValue * quotelist.size(  ) );
         String quote = prefix + quotelist.get( quoteNum ) + postfix;
 
