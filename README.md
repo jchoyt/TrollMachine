@@ -28,6 +28,8 @@ Other useful tasks:
 manual BuildTools step needed. The one dependency that *does* need to be
 vendored by hand is the optional [ManHunt plugin](https://github.com/jchoyt/ManHunt)
 (a soft dependency, used only for `ManHuntFailListener`); see `libs/README.md`.
+`ManHunt.jar` isn't published anywhere — build it yourself from that project
+and drop the resulting jar in `libs/`.
 
 ### If your default `java` is newer than Gradle supports
 
