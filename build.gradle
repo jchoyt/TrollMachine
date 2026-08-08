@@ -9,7 +9,7 @@ java {
     // Pins which JDK compiles/tests this project, independent of whatever
     // `java` happens to be first on a given machine's PATH.
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -19,24 +19,12 @@ repositories {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
-}
-
-// ManHunt.jar (see libs/README.md) is a soft dependency vendored by hand and
-// not committed. When it's missing — e.g. on a fresh CI checkout — compile a
-// tiny stand-in for the one class TrollMachine references from it, so the
-// whole project (including ManHuntFailListener and its caller in
-// TrollMachine) still compiles and the test suite still runs.
-//
-// The stub lives in its own source set, added only to the *compile*
-// classpath (never to sourceSets.main), so it's never packaged into the
-// plugin jar — a real deployed jar must never risk shadowing ManHunt's own
-// AfkEvent class if that plugin is also installed on the server.
-def manHuntJarPresent = file('libs/ManHunt.jar').exists()
-if (!manHuntJarPresent) {
-    sourceSets {
-        manHuntStub {
-            java.srcDir('ci/manhunt-stub')
-        }
+    maven {
+        // Resolves ManHunt (see below) — it isn't published to Maven
+        // Central, but JitPack builds arbitrary GitHub repos on demand and
+        // serves the result from here.
+        name = 'jitpack'
+        url = 'https://jitpack.io'
     }
 }
 
@@ -44,30 +32,26 @@ dependencies {
     // Provided by the Spigot/Paper server at runtime; never bundled into the
     // plugin jar. Tests need it on their own compile+runtime classpath too,
     // since they run in a plain JVM with no real server providing it.
-    compileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
-    testCompileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
-    testRuntimeOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:26.2-R0.1-SNAPSHOT'
+    testCompileOnly 'org.spigotmc:spigot-api:26.2-R0.1-SNAPSHOT'
+    testRuntimeOnly 'org.spigotmc:spigot-api:26.2-R0.1-SNAPSHOT'
 
-    if (manHuntJarPresent) {
-        // Soft dependency (see plugin.yml's softdepend). Not published to
-        // any Maven repo, so it's vendored locally; see libs/README.md.
-        compileOnly files('libs/ManHunt.jar')
-        testCompileOnly files('libs/ManHunt.jar')
-        testRuntimeOnly files('libs/ManHunt.jar')
-    } else {
-        manHuntStubCompileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
-        compileOnly sourceSets.manHuntStub.output
-        testCompileOnly sourceSets.manHuntStub.output
-    }
+    // Soft dependency (see plugin.yml's softdepend), used only by
+    // ManHuntFailListener. ManHunt (https://github.com/jchoyt/ManHunt)
+    // migrated to Gradle but hasn't cut a tagged release since, so this
+    // floats on the latest master commit via JitPack rather than pinning to
+    // a version — bump to a tag once one exists upstream.
+    compileOnly 'com.github.jchoyt:ManHunt:master-SNAPSHOT'
+    testCompileOnly 'com.github.jchoyt:ManHunt:master-SNAPSHOT'
+    testRuntimeOnly 'com.github.jchoyt:ManHunt:master-SNAPSHOT'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.16.0'
 }
 
 tasks.withType(JavaCompile).configureEach {
-    // Keeps the compiled bytecode compatible with older server JVMs,
-    // regardless of which JDK actually runs the compiler.
-    options.release = 17
+    // Matches spigot-api 26.2, which itself requires a Java 25+ server JVM.
+    options.release = 25
 }
 
 test {

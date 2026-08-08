@@ -30,6 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced the Ant build with Gradle; spigot-api is now resolved from Spigot's Maven repo instead of built/vendored by hand. See README.md.
 - Added GitHub Actions CI to build and test on every push/PR.
 - Added Dependabot for build.gradle dependencies and GitHub Actions versions.
+- ManHunt is now resolved as a real dependency via JitPack instead of a
+  hand-vendored jar (with a compile-only stub fallback in CI). Since ManHunt
+  itself now requires spigot-api 26.2 / Java 25, this plugin's own target
+  bumped from spigot-api 1.21 / Java 17 to match; requires JDK 25 to build
+  and a matching server version to run. Gradle wrapper bumped 8.14.3 → 9.7.0
+  accordingly.
 
 ### Fixed
 - permission for /franklin was munged by a misplaced copypasta

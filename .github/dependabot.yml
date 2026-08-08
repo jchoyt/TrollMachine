@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # build.gradle dependencies (spigot-api, JUnit, Mockito)
+  # build.gradle dependencies (spigot-api, ManHunt, JUnit, Mockito)
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
