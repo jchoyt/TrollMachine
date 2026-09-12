@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.asharpminer'
-version = '1.0.2'
+version = '26.2'
 
 java {
     // Pins which JDK compiles/tests this project, independent of whatever
