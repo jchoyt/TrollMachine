@@ -23,6 +23,10 @@ commands:
     description: Tells a joke
     usage: /joke
     permission: troll.basic
+  wolverine:
+    description: heals kaityizzy
+    usage: /wolverine
+    permission: troll.basic
 
 permissions:
   troll.basic:

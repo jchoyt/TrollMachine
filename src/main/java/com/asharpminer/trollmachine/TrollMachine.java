@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
@@ -19,6 +20,9 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public final class TrollMachine extends JavaPlugin {
 
+    public final UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
+    public final UUID entomoUuid = UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21");
+    
     private Logger log = null;
     // package-private so tests can inject a seeded Random for deterministic quote selection
     Random random = new Random();
@@ -38,6 +42,7 @@ public final class TrollMachine extends JavaPlugin {
         new EightBallCommandExecutor(this); // gives answers to yes/no questions
         new SleepListener(this); // wishes people lovely dreams
         new TrollCommandExecutor(this); // allows players to troll one another
+        new WolverineCommandExecutor(this); //allows kaityizzy to get regen effect
         if(getServer().getPluginManager().getPlugin("ManHunt") != null) //load this listener only if ManHut is loaded
             new ManHuntFailListener(this);
     }

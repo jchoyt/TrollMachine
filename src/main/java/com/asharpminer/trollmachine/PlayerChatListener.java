@@ -5,16 +5,21 @@ package com.asharpminer.trollmachine;
 
 import java.util.logging.Logger;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class PlayerChatListener implements Listener {
@@ -23,6 +28,7 @@ public class PlayerChatListener implements Listener {
     private Logger logger = null;
     private int cakes = 0;
     private List<String> welcomes = new ArrayList<String>();
+    private final Set<UUID> blockedPlayers = new HashSet<>();
 
     public PlayerChatListener(TrollMachine plugin) {
         this.plugin = plugin;  // Store the plugin in situations where you need it.
@@ -38,6 +44,9 @@ public class PlayerChatListener implements Listener {
                 if(cakes > 0) cakes--;
             }
         }, 0L, 5L * 60L * 20L); // minutes * sec/min * ticks/sec
+
+        // blockedPlayers.add(plugin.entomoUuid);  //for testing purposes
+        blockedPlayers.add(plugin.kaitlynUuid);
     }
 
     @EventHandler //(priority = EventPriority.LOWEST)
@@ -66,6 +75,28 @@ public class PlayerChatListener implements Listener {
         if(Math.random() < 0.03) {
             int quoteNum = ( int ) ( Math.random() * welcomes.size() );
             event.setJoinMessage(ChatColor.YELLOW + "Welcome, " + event.getPlayer().getName() + "! " + welcomes.get( quoteNum ));
+        }
+    }
+
+    private final List<String> msgCommands = Arrays.asList("/msg", "/tell", "/w", "/whisper");
+    /**  Prevents kaity from getting private messages */
+    @EventHandler
+    public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        String message = event.getMessage();
+        String[] args = message.split(" ");
+        String command = args[0].toLowerCase();
+
+        // Check if the command is a private messaging command
+        if (msgCommands.contains(command)) {
+            if (args.length < 2) return; // Not enough arguments to target a player
+
+            String targetName = args[1];
+            Player targetPlayer = Bukkit.getPlayerExact(targetName);
+
+            if (targetPlayer != null && blockedPlayers.contains(targetPlayer.getUniqueId())) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage("§cThis player is currently not receiving private messages.");
+            }
         }
     }
 }
