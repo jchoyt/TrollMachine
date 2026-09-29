@@ -13,7 +13,10 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.UUID;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -22,6 +25,9 @@ public final class TrollMachine extends JavaPlugin {
 
     public final UUID kaitlynUuid = UUID.fromString("645c676e-4d5f-49eb-8909-575da044ed62");
     public final UUID entomoUuid = UUID.fromString("61d70a19-7338-4e31-a83d-b8c62ba6ec21");
+    public final UUID gooberUuid = UUID.fromString("1c193329-8e1d-43aa-bbd0-df681bf54eac");
+    public final UUID duplocookUuid = UUID.fromString("59875b4e-17c5-40dc-b133-a51e1d02eccb");
+    final List<UUID> youngins = List.of(kaitlynUuid, gooberUuid, duplocookUuid);
     
     private Logger log = null;
     // package-private so tests can inject a seeded Random for deterministic quote selection
@@ -70,6 +76,13 @@ public final class TrollMachine extends JavaPlugin {
         return targetPlayer;
     }
 
+    public boolean areYounginsnOnline() {
+        for (UUID y : youngins) {
+            Player youngin = this.getServer().getPlayer(y);
+            if (youngin != null && youngin.isOnline()) return true;
+        }
+        return false;
+    }
 
     public void runCommand(String command, long delay){
         BukkitScheduler scheduler = getServer().getScheduler();

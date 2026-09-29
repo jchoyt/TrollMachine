@@ -47,6 +47,7 @@ public class PlayerChatListener implements Listener {
 
         // blockedPlayers.add(plugin.entomoUuid);  //for testing purposes
         blockedPlayers.add(plugin.kaitlynUuid);
+        blockedPlayers.add(plugin.gooberUuid);
     }
 
     @EventHandler //(priority = EventPriority.LOWEST)

@@ -8,15 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.UUID;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -30,7 +25,9 @@ public class WolverineCommandExecutor implements CommandExecutor {
         this.plugin = plugin;           // Store the plugin in situations where you need it.
         logger = plugin.getLogger();
         plugin.getCommand("wolverine").setExecutor(this);
-        allowedUsers.add(plugin.kaitlynUuid); //kaityizzy
+        allowedUsers.add(plugin.kaitlynUuid);
+        allowedUsers.add(plugin.gooberUuid);
+        allowedUsers.add(plugin.duplocookUuid);
     }
 
     @Override
