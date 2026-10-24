@@ -47,7 +47,6 @@ public final class TrollMachine extends JavaPlugin {
         new JokeCommandExecutor(this); //tells a short joke
         new EightBallCommandExecutor(this); // gives answers to yes/no questions
         new SleepListener(this); // wishes people lovely dreams
-        new TrollCommandExecutor(this); // allows players to troll one another
         new WolverineCommandExecutor(this); //allows kaityizzy to get regen effect
         if(getServer().getPluginManager().getPlugin("ManHunt") != null) //load this listener only if ManHut is loaded
             new ManHuntFailListener(this);
@@ -76,7 +75,7 @@ public final class TrollMachine extends JavaPlugin {
         return targetPlayer;
     }
 
-    public boolean areYounginsnOnline() {
+    public boolean areYounginsOnline() {
         for (UUID y : youngins) {
             Player youngin = this.getServer().getPlayer(y);
             if (youngin != null && youngin.isOnline()) return true;

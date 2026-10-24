@@ -3,7 +3,7 @@ description: Various non-game changing interruptions in the normal course of pla
 main: com.asharpminer.trollmachine.TrollMachine
 version: ${version}
 prefix: "TrollMachine"
-api-version: 1.21
+api-version: 26.3
 softdepend: [ManHunt]
 
 commands:

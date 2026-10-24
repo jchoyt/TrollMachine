@@ -23,12 +23,16 @@ public class NonParticipationPrizes {
         Material.GLASS_BOTTLE,
         Material.GRANITE,
         Material.GRAVEL,
+        Material.LEAF_LITTER,
         Material.MANGROVE_BUTTON,
         Material.MUD,
         Material.ORANGE_CARPET,
         Material.POISONOUS_POTATO,
+        Material.RED_SHRUB,
+        Material.SHORT_DRY_GRASS,
         Material.STICK,
         Material.STONE_AXE,
+        Material.STRAW_BED,
         Material.WOODEN_HOE
     );
 }

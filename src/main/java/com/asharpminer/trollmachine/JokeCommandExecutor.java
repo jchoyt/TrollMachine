@@ -41,7 +41,7 @@ public class JokeCommandExecutor implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player)sender;
             // clean up our act if Kaitlyn is online
-            if(plugin.areYounginsnOnline()) {
+            if(plugin.areYounginsOnline()) {
                 plugin.sendQuote(jokes, ChatColor.GRAY +
                     player.getName() + " asked for a joke. \n" +
                     ChatColor.DARK_AQUA, "");
